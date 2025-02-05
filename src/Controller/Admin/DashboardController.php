@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Category; 
 use App\Entity\Post; 
 use App\Entity\Tag; 
+use App\Entity\User;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -49,6 +50,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Gestion des posts', 'fas fa-folder', Post::class);
         yield MenuItem::linkToCrud('Categories', 'fas fa-list', Category::class);
         yield MenuItem::linkToCrud('Tags', 'fas fa-list', Tag::class);
+        yield MenuItem::linkToCrud('Users', 'fas fa-user', User::class);
         
     }
 }

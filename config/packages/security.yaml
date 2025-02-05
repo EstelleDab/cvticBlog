@@ -10,6 +10,9 @@ security:
                 class: App\Entity\User
                 property: email
     firewalls:
+        login:
+            pattern: ^/login$
+            security: false
         dev:
             pattern: ^/(_(profiler|wdt)|css|uploads|js)/
             security: false
