@@ -2,6 +2,15 @@
 
 {% block title %}Hello FrontController!{% endblock %}
 
-{% block body %}
-   Actualités
+{% block body %}  
+Actualités
+
+   {% for post in posts %}
+      <p>{{ post.title }}</p>
+      <p>{{ post.content|raw }}</p> <!-- Fermez la balise <p> ici -->
+      {% for tag in post.tags %}
+         <span class="badge bg-warning">{{ tag.name }}</span>
+      {% endfor %}
+   {% endfor %}
+ 
 {% endblock %}
