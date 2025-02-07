@@ -22,14 +22,27 @@ class PostCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            //IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('content'),
-            AssociationField::new ('category'),
-            AssociationField::new ('tags'),
+            IdField::new('id')->hideOnForm(),
+
+            TextField::new('title')
+            ->setRequired(true)
+            ->setMaxLength(255),
+
+            TextEditorField::new('content')
+            ->setRequired(false),
+
+            AssociationField::new ('category')
+            ->setRequired(true),
+
+            AssociationField::new ('tags')
+            ->setRequired(false),
+
             BooleanField::new('isActive'),
-            ImageField::new('image')->setUploadDir('public/uploads/images
-            ')->setBasePath('/uploads/images')->setUploadDir('public/uploads/images'),
+
+            ImageField::new('image')
+            ->setUploadDir('public/uploads/images')
+            ->setBasePath('/uploads/images')
+            ->setUploadDir('public/uploads/images'),
 
         ];
     }
