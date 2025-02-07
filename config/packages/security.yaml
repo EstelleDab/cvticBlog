@@ -10,20 +10,24 @@ security:
                 class: App\Entity\User
                 property: email
     firewalls:
-        login:
-            pattern: ^/login$
-            security: false
         dev:
             pattern: ^/(_(profiler|wdt)|css|uploads|js)/
             security: false
         main:
+            pattern: ^/
             lazy: true
             provider: app_user_provider
-            custom_authenticator: App\Security\CustomAuthenticator
+            form_login:
+                login_path: app_login
+                check_path: app_login
+                default_target_path: app_home
+                enable_csrf: true
             logout:
                 path: app_logout
-                # where to redirect after logout
-                # target: app_any_route
+                target: app_login
+                invalidate_session: true
+                clear_site_data: ['*']
+
 
             remember_me:
                 secret: '%kernel.secret%'
@@ -40,7 +44,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
