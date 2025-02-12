@@ -13,6 +13,9 @@ Actualité en détails
       <div>{{post.category}}</div>
       <div> {{ post.createdAt|date( "d/M/Y h:s")}}</div>
       <h3> Commentaire</h3>
+      {{form_start(form) }}
+         {{ form_row(form.content) }}
+         <button type="submit" class="btn btn-primary">Envoyer</button>
       {%for comment in post.comments %}
         <div>{{comment.content}}</div>
         <div>{{comment.createdAt| date('d/M/Y h:s')}}</div>

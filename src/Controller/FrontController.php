@@ -3,8 +3,12 @@
 namespace App\Controller;
 use App\Repository\PostRepository;
 use App\Entity\Post;
+use App\Entity\Comment;
+use App\Form\CommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class FrontController extends AbstractController
@@ -30,10 +34,22 @@ final class FrontController extends AbstractController
     }
 
     #[Route('/actualites/{id}', name: 'app_front_actu_detail')] 
-    public function actuDetail(Post $post) : Response 
-    {
-     
-        return $this->render('front/actu_detail.html.twig', ['post'=> $post]);
+    public function actuDetail(Post $post, Request $request, EntityManagerInterface $entityManager) : Response 
+    { $comment= new Comment();
+        $form= $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $comment->setPost($post);
+            $comment->setUser($this->getUser());
+            $entityManager->persist($comment);
+            $entityManager->flush();
+            $this->addFlash('success', 'Votre commentaire abien été ajouté');
+            return $this->redirectToRoute('app_front_actu_detail', ['id'=> $post->getId()]);
+        }
+        return $this->render('front/actu_detail.html.twig', [
+            'post'=> $post,
+            'form'=> $form->createView(),
+    ]);
     }
 
     #[Route('/contact', name: 'app_front_contact')]
