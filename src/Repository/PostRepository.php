@@ -22,7 +22,8 @@ class PostRepository extends ServiceEntityRepository
            public function findOrderPosts(): array
             {
             return $this->createQueryBuilder('p')
-         
+                ->leftJoin('p.category', 'c')->addSelect('c')
+                ->leftJoin('p.tags', 't')->addSelect('t')
                 ->orderBy('p.id', 'ASC')
                 ->getQuery()
                 ->getResult()
