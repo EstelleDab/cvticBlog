@@ -9,10 +9,13 @@ use Symfony\Component\Routing\Attribute\Route;
 final class FrontController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(): Response
+    public function index(PostRepository $postRepository): Response
     {
+        $posts = $postRepository->findOrderPosts(); 
+    
         return $this->render('front/index.html.twig', [
             'controller_name' => 'FrontController',
+            'posts' => $posts, 
         ]);
     }
 
