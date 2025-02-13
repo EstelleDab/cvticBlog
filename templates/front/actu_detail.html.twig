@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello FrontController!{% endblock %}
+
+{% block body %}  
+Actualité en détails
+<div class="container"> 
+      <p>{{ post.title }}</p>
+      <p>{{ post.content|raw }}</p> <!-- Fermez la balise <p> ici -->
+      {% for tag in post.tags %}
+         <span class="badge bg-warning">{{ tag.name }}</span>
+      {% endfor %}
+      <div>{{post.category}}</div>
+      <div> {{ post.createdAt|date( "d/M/Y h:s")}}</div>
+      <h3> Commentaire</h3>
+      {{form_start(form) }}
+         {{ form_row(form.content) }}
+         <button type="submit" class="btn btn-primary">Envoyer</button>
+      {%for comment in post.comments %}
+        <div>{{comment.content}}</div>
+        <div>{{comment.createdAt| date('d/M/Y h:s')}}</div>
+        <div>{{comment.user.username}}</div>
+        <hr>
+      {% endfor %}
+    </div>
+
+
+ 
+{% endblock %}
