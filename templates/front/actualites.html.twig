@@ -19,6 +19,8 @@
                         {% for tag in post.tags %}
                            <span class="badge bg-secondary">{{ tag.name }}</span>
                         {% endfor %}
+                        <a href="{{path('app_front_actu_detail', {id:post.id})}}" class="detail">Voir plus</a>
+                        <br>
                     </div>
                 </div>
             </div>
