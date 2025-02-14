@@ -1,0 +1,57 @@
+.title-post {
+    font-size: 2em;
+}
+
+.comment-block {
+    margin-top: 2rem;
+}
+
+.comment {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(315deg, #1e30f3 0%, #e21e80 100%);
+    padding: 2rem;
+    color: #fff;
+    margin-top: 2rem;
+}
+
+.comment-content {
+    margin-bottom: 2rem;
+}
+
+.comment-metadata {
+    display: flex;
+    justify-content: space-between;
+}
+
+.comment-actions {
+    display: flex;
+    justify-content: center;
+}
+
+.comment-actions a {
+    display: inline-block;
+    padding: .5rem 4rem;
+    border-radius: .25rem;
+    background: #1e30f3;
+    margin-top: 2rem;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color ease-in-out 300ms;
+}
+
+.comment-actions a:hover {
+    background: #e21e80;
+}
+
+.form-zone {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-zone textarea {
+    display: block;
+    width: 100%;
+    height: 10rem;
+    margin-bottom: 2rem;
+}
