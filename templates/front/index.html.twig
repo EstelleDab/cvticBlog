@@ -16,6 +16,8 @@
                      <div class="p-5">
                          <h2 class="fw-bolder">{{ post.title }}</h2>
                          <p>{{ post.content|raw }}</p>
+                         <a href="{{ path('app_front_actu_detail', { 'id': post.id }) }}" class="btn btn-primary">Lire plus</a>
+                         <div> {{ post.createdAt|date( "d/M/Y h:s")}}</div>
                          {% for tag in post.tags %}
                             <span class="badge bg-secondary">{{ tag.name }}</span>
                          {% endfor %}
