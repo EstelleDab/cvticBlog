@@ -32,7 +32,9 @@
                         <div class="comment-content">{{comment.content}}</div>
                         <div class="comment-metadata">
                             <div class="comment-date">Le : {{comment.createdAt| date('d/M/Y h:s')}}</div>
+
                             <div class="comment-user"> Par : {{ comment.user is not null ? comment.user.email : 'Utilisateur inconnu' }}
+
                         </div>
                         <div class="comment-actions">
                             {% if app.user is not null %}
@@ -49,5 +51,6 @@
             </div>
         </div>
         <a href="{{ path('app_front_actualites') }}" class="btn btn-secondary mt-3">Retour aux actualités</a>
+
     </div>
 {% endblock %}
