@@ -28,6 +28,9 @@ class Comment
     #[ORM\JoinColumn(nullable: false)]
     private ?Post $post = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $reported = null;
+
     public function __construct() 
     {
         $this->createdAt = new DateTimeImmutable();
@@ -81,6 +84,18 @@ class Comment
     public function setPost(?Post $post): static
     {
         $this->post = $post;
+
+        return $this;
+    }
+
+    public function isReported(): ?bool
+    {
+        return $this->reported;
+    }
+
+    public function setReported(?bool $reported): static
+    {
+        $this->reported = $reported;
 
         return $this;
     }
