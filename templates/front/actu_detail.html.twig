@@ -1,29 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello FrontController!{% endblock %}
+{% block title %}{{ post.title }}!{% endblock %}
 
-{% block body %}  
-Actualité en détails
-<div class="container"> 
-      <p>{{ post.title }}</p>
-      <p>{{ post.content|raw }}</p> <!-- Fermez la balise <p> ici -->
-      {% for tag in post.tags %}
-         <span class="badge bg-warning">{{ tag.name }}</span>
-      {% endfor %}
-      <div>{{post.category}}</div>
-      <div> {{ post.createdAt|date( "d/M/Y h:s")}}</div>
-      <h3> Commentaire</h3>
-      {{form_start(form) }}
-         {{ form_row(form.content) }}
-         <button type="submit" class="btn btn-primary">Envoyer</button>
-      {%for comment in post.comments %}
-        <div>{{comment.content}}</div>
-        <div>{{comment.createdAt| date('d/M/Y h:s')}}</div>
-        <div>{{comment.user.username}}</div>
-        <hr>
-      {% endfor %}
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('post.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container px-5 pb-5">
+        <h1 class="display-5 fw-bolder mb-0 pb-5"><span class="text-gradient d-inline">Les dernières actus</span></h1>
+        <div class="container">
+            <p class="title-post">{{ post.title }}</p>
+            <p>{{ post.content|raw }}</p> <!-- Fermez la balise <p> ici -->
+            {% for tag in post.tags %}
+                <span class="badge bg-warning">{{ tag.name }}</span>
+            {% endfor %}
+            <div>{{post.category}}</div>
+            <div> {{ post.createdAt|date( "d/M/Y h:s")}}</div>
+            <h3> Commentaire</h3>
+
+            <div class="form-zone">
+                {{form_start(form) }}
+                {{ form_row(form.content) }}
+                <button type="submit" class="btn btn-primary">Envoyer</button>
+                {{ form_end(form) }}
+            </div>
+
+            <div class="comment-block">
+                {%for comment in post.comments %}
+                    <div class="comment">
+                        <div class="comment-content">{{comment.content}}</div>
+                        <div class="comment-metadata">
+                            <div class="comment-date">Le : {{comment.createdAt| date('d/M/Y h:s')}}</div>
+                            <div class="comment-user">Par : {{comment.user.email}}</div>
+                        </div>
+                        <div class="comment-actions">
+                            {% if app.user is not null %}
+                                {% if app.user == comment.user %}
+                                    <a href="{{ path('app_front_delete_comment', {'id': comment.id}) }}">Supprimer</a>
+                                {% else %}
+                                    <a href="{{ path('app_front_report_comment', {'id': comment.id}) }}">Signaler</a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <hr>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-
-
- 
 {% endblock %}

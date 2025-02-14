@@ -13,11 +13,21 @@
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
-        
+
+        {% block css %}
+        {% endblock %}
+
     </head>
     <body class="d-flex flex-column h-100">
     <main class="flex-shrink-0">
         {%  include 'partials/nav.html.twig' %}
+        {% for type, messages in app.flashes %}
+        <div class="alert alert-{{ type }}">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+        {% endfor %}
         {% block body %}{% endblock %}
     </main>
 
